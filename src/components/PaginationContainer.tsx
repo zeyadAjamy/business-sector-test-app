@@ -6,7 +6,9 @@ const ListPages = ({ number_pages, currentPageNumber, changePage }: ListPagesTyp
   <div className="order-2">
     {[...Array(number_pages)].map((_, i) => (
       <span
-        className={`px-2 font-[500] cursor-pointer italic sm:hidden md:inline ${currentPageNumber == i + 1 ? "text-green-lime" : "text-gray-dark"}`}
+        className={`px-2 font-[500] cursor-pointer italic sm:hidden md:inline ${
+          currentPageNumber == i + 1 ? "text-green-lime" : "text-gray-dark"
+        }`}
         onClick={() => changePage(i + 1)}
         key={i}
       >
@@ -44,7 +46,7 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
 
 const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
   return (
-    <div className="table-row-group">
+    <div className="w-full">
       {list.map((element: (typeof list)[0], i: number) => {
         if (i >= startItem && i < startItem + numberItemsPage) {
           return <Template element={element} index={i} key={i} />;
@@ -58,8 +60,7 @@ const PaginationContainer = ({ list, Template }: ContainerType) => {
   const [startItem, setStartItem] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [numberItemsPage, setNumberItemsPage] = useState(10);
-  let totalNumber = list.length;
-  let number_pages = Math.ceil(totalNumber / numberItemsPage);
+  const [numberOfPages, setNumberOfPages] = useState(0);
 
   const changePage = (num: number) => {
     /**
@@ -69,7 +70,7 @@ const PaginationContainer = ({ list, Template }: ContainerType) => {
      */
 
     // Exit if num is zero, less than zero or greater than the page number
-    if (num <= 0 || num > number_pages) {
+    if (num <= 0 || num > numberOfPages) {
       return;
     }
 
@@ -97,10 +98,15 @@ const PaginationContainer = ({ list, Template }: ContainerType) => {
     };
   });
 
+  useEffect(() => {
+    setCurrentPageNumber(1);
+    setNumberOfPages(Math.ceil(list.length / numberItemsPage))
+    setStartItem(0);
+  }, [list]);
   return (
     <>
       <Cards list={list} startItem={startItem} numberItemsPage={numberItemsPage} Template={Template} />
-      <PaginationController changePage={changePage} currentPageNumber={currentPageNumber} number_pages={number_pages} />
+      <PaginationController changePage={changePage} currentPageNumber={currentPageNumber} number_pages={numberOfPages} />
     </>
   );
 };
