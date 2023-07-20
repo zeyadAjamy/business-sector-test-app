@@ -7,9 +7,9 @@ import PaginationContainer from "@/components/PaginationContainer";
 const PostRow = ({ element }: { element: PostType }) => {
   return (
     <div className="w-full flex text-gray-dark text-[13px] font-[500] ease-in-out hover:bg-gray-light-bg duration-100">
-      <div className="w-[60px] text-center p-[15px] border border-t-0 border-gray-extralight">{element.id}</div>
-      <div className="w-[40%] p-[15px] border-b boreder-r border-gray-extralight">{element.title}</div>
-      <div className="w-[60%] p-[15px] border border-t-0 border-gray-extralight">{element.body}</div>
+      <span className="block w-[60px] text-center p-[15px] border border-t-0 border-gray-extralight">{element.id}</span>
+      <span className="block w-[40%] p-[15px] border-b boreder-r border-gray-extralight">{element.title}</span>
+      <span className="block w-[60%] p-[15px] border border-t-0 border-gray-extralight">{element.body}</span>
     </div>
   );
 };

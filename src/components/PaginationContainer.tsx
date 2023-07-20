@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MdArrowBackIosNew as ScrollArrowLeft, MdArrowForwardIos as ScrollArrowRight } from "react-icons/md";
 import type { ControllerType, CardsType, ContainerType, ListPagesType } from "@/types";
 
-const ListPages = ({ number_pages, currentPageNumber, changePage }: ListPagesType) => (
+const ListPageNumbers = ({ number_pages, currentPageNumber, changePage }: ListPagesType) => (
   <div className="order-2">
     {[...Array(number_pages)].map((_, i) => (
       <span
@@ -27,14 +27,16 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
     >
       <button
         className="flex items-center px-1 gap-1 order-1 font-[500] text-[18px]"
+        disabled={currentPageNumber == 1}
         onClick={() => changePage(currentPageNumber - 1)}
       >
         <ScrollArrowLeft />
         <span> Назад </span>
       </button>
-      <ListPages number_pages={number_pages} currentPageNumber={currentPageNumber} changePage={changePage} />
+      <ListPageNumbers number_pages={number_pages} currentPageNumber={currentPageNumber} changePage={changePage} />
       <button
         className="flex items-center px-1 gap-1 order-3 font-[500] text-[18px]"
+        disabled={currentPageNumber == number_pages}
         onClick={() => changePage(currentPageNumber + 1)}
       >
         <span> Далее </span>
@@ -56,7 +58,7 @@ const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
   );
 };
 
-const PaginationContainer = ({ list, Template }: ContainerType) => {
+const PaginationContainer = ({ list = [], Template = (element) => <></> }: ContainerType) => {
   const [startItem, setStartItem] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [numberItemsPage, setNumberItemsPage] = useState(10);
@@ -100,19 +102,19 @@ const PaginationContainer = ({ list, Template }: ContainerType) => {
 
   useEffect(() => {
     setCurrentPageNumber(1);
-    setNumberOfPages(Math.ceil(list.length / numberItemsPage))
+    setNumberOfPages(Math.ceil(list.length / numberItemsPage));
     setStartItem(0);
   }, [list]);
   return (
     <>
       <Cards list={list} startItem={startItem} numberItemsPage={numberItemsPage} Template={Template} />
-      <PaginationController changePage={changePage} currentPageNumber={currentPageNumber} number_pages={numberOfPages} />
+      <PaginationController
+        changePage={changePage}
+        currentPageNumber={currentPageNumber}
+        number_pages={numberOfPages}
+      />
     </>
   );
-};
-
-PaginationController.defaultProps = {
-  list: [],
 };
 
 export default PaginationContainer;
