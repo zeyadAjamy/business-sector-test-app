@@ -17,7 +17,7 @@ const SearchBar = () => {
       (post) =>
         post.title.toLowerCase().includes(searchText.toLowerCase()) ||
         post.body.toLowerCase().includes(searchText.toLowerCase()) ||
-        post.id == parseInt(searchText.replace(/[^0-9]/gm, ""))
+        String(post.id).valueOf().includes(searchText)
     );
 
     // Dispatch the filtered posts

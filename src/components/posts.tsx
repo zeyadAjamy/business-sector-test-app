@@ -1,7 +1,8 @@
-import PaginationContainer from "@/components/PaginationContainer";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { IoIosArrowDown as ArrowBottom } from "react-icons/io";
-
-import { PostType } from "@/types";
+import { setViewPosts } from "@/store/slices/postSlice";
+import type { PostType } from "@/types";
+import PaginationContainer from "@/components/PaginationContainer";
 
 const PostRow = ({ element }: { element: PostType }) => {
   return (
@@ -14,18 +15,50 @@ const PostRow = ({ element }: { element: PostType }) => {
 };
 
 const PostsTableHeader = () => {
+  const { allPosts } = useAppSelector((state) => state.posts);
+  const dispatch = useAppDispatch();
+
+  const sortHandler = (columnName: string) => {
+    switch (columnName) {
+      case "id":
+        // Sort by id (ascending order)
+        const sortedById = [...allPosts].sort((a, b) => b.id - a.id);
+        dispatch(setViewPosts(sortedById));
+        break;
+      case "title":
+        // Sort by title (alphabetical order)
+        const sortedByTitle = [...allPosts].sort((a, b) => a.title.localeCompare(b.title));
+        dispatch(setViewPosts(sortedByTitle));
+        break;
+      case "body":
+        // Sort by body (alphabetical order)
+        const sortedByBody = [...allPosts].sort((a, b) => a.body.localeCompare(b.body));
+        dispatch(setViewPosts(sortedByBody));
+        break;
+    }
+  };
+
   return (
     <div className="w-full flex bg-gray-dark text-[white]">
-      <div className="flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
+      <div
+        className="flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]"
+        onClick={() => sortHandler("id")}
+      >
         <span className="font-[600]">ID</span>
         <ArrowBottom />
       </div>
-      <div className="w-[40%] flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
+      <div
+        className="w-[40%] flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]"
+        onClick={() => sortHandler("title")}
+      >
         <span className="font-[600]">Заголовок</span>
         <ArrowBottom />
       </div>
 
-      <div className="w-[60%] flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
+      <div
+        className="w-[60%] flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]"
+        onClick={() => sortHandler("body")}
+      >
         <span className="font-[600]">Описание</span>
         <ArrowBottom />
       </div>
