@@ -6,4 +6,6 @@ const InputElement = forwardRef<HTMLInputElement, InputElementProps>((props, ref
   return <input ref={ref} {...otherProps} onChange={handleChange} />;
 });
 
+InputElement.displayName = "InputElement";
+
 export default InputElement;
