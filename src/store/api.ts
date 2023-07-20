@@ -11,10 +11,10 @@ export const BusinessSectorApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    fetchPosts: builder.query<PostType[], void>({
+    fetchPosts: builder.mutation<PostType[], void>({
       query: () => "posts",
     }),
   }),
 });
 
-export const { useFetchPostsQuery } = BusinessSectorApi;
+export const { useFetchPostsMutation} = BusinessSectorApi;

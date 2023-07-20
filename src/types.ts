@@ -33,5 +33,5 @@ export interface InputElementProps {
   placeholder: string;
   type: string;
   className: string;
-  handleChange: (e: React.ChangeEvent) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
