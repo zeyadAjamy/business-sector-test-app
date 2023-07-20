@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Providers>
-          <div className="lg:w-[70%] md:w-[80%] sm:w-[full] md:px-0 sm:px-[40px] md:m-auto sm:m-0">
+          <div className="lg:w-[70%] md:w-[80%] sm:w-full md:m-auto sm:m-0 font-[Roboto]">
             {children}
           </div>
         </Providers>

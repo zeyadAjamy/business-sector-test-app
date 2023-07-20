@@ -12,7 +12,7 @@ import { useFetchPostsQuery } from "@/store/api";
 export default function Home() {
   const { data, isLoading, isError, error } = useFetchPostsQuery();
   return (
-    <main className="flex flex-col gap-[15px] items-start p-24">
+    <main className="w-full flex flex-col gap-[15px] items-start p-[15px]">
       <SearchBar />
       {!isLoading && !isError ? <PostsTable posts={data || []} /> : <p> Loading ... </p>}
       {isError && <p> Something went wrong! </p>}

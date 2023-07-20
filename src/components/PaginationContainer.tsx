@@ -6,7 +6,7 @@ const ListPages = ({ number_pages, currentPageNumber, changePage }: ListPagesTyp
   <div className="order-2">
     {[...Array(number_pages)].map((_, i) => (
       <span
-        className={`px-2 cursor-pointer italic ${currentPageNumber == i + 1 ? "text-green-lime" : "text-gray-dark"}`}
+        className={`px-2 font-[500] cursor-pointer italic sm:hidden md:inline ${currentPageNumber == i + 1 ? "text-green-lime" : "text-gray-dark"}`}
         onClick={() => changePage(i + 1)}
         key={i}
       >
@@ -24,7 +24,7 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
       } w-full h-fit py-[5px] mt-[20px] flex-row justify-between items-center`}
     >
       <button
-        className="flex items-center px-1 gap-1 order-1 font-[500] text-[24px]"
+        className="flex items-center px-1 gap-1 order-1 font-[500] text-[18px]"
         onClick={() => changePage(currentPageNumber - 1)}
       >
         <ScrollArrowLeft />
@@ -32,7 +32,7 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
       </button>
       <ListPages number_pages={number_pages} currentPageNumber={currentPageNumber} changePage={changePage} />
       <button
-        className="flex items-center px-1 gap-1 order-3 font-[500] text-[24px]"
+        className="flex items-center px-1 gap-1 order-3 font-[500] text-[18px]"
         onClick={() => changePage(currentPageNumber + 1)}
       >
         <span> Далее </span>
