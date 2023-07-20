@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MdArrowBackIosNew as ScrollArrowLeft, MdArrowForwardIos as ScrollArrowRight } from "react-icons/md";
 import type { ControllerType, CardsType, ContainerType, ListPagesType } from "@/types";
 
-const ListPages = ({number_pages, currentPageNumber, changePage}: ListPagesType) => (
+const ListPages = ({ number_pages, currentPageNumber, changePage }: ListPagesType) => (
   <div className="order-2">
     {[...Array(number_pages)].map((_, i) => (
       <span
@@ -40,14 +40,10 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
 
 const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
   return (
-    <div className="flex flex-col">
+    <div className="table-row-group">
       {list.map((element: (typeof list)[0], i: number) => {
         if (i >= startItem && i < startItem + numberItemsPage) {
-          return (
-            <div key={i}>
-              <Template element={element} index={i} />
-            </div>
-          );
+          return <Template element={element} index={i} key={i} />;
         }
       })}
     </div>

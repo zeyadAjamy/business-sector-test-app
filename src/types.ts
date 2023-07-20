@@ -28,3 +28,9 @@ export interface PostType {
   title: string;
   body: string;
 }
+
+export interface InputElementProps {
+  type: string;
+  className: string;
+  handleChange: (e: React.ChangeEvent) => void;
+}
