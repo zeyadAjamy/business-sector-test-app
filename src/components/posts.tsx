@@ -18,19 +18,19 @@ const PostsTableHeader = () => {
     <div className="table-header-group bg-gray-dark text-[white]">
       <div className="table-row">
         <div className="table-cell">
-          <div className="flex flex-row items-center gap-1 justify-between text-[14px] cursor-pointer p-[15px]">
+          <div className="flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
             <span className="font-[600]">ID</span>
             <ArrowBottom />
           </div>
         </div>
         <div className="table-cell">
-          <div className="flex flex-row items-center gap-1 justify-between text-[14px] cursor-pointer p-[15px]">
+          <div className="flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
             <span className="font-[600]">Заголовок</span>
             <ArrowBottom />
           </div>
         </div>
         <div className="table-cell">
-          <div className="flex flex-row items-center gap-1 justify-between text-[14px] cursor-pointer p-[15px]">
+          <div className="flex flex-row items-center gap-2 sm:justify-between md:justify-center text-[14px] cursor-pointer p-[15px]">
             <span className="font-[600]">Описание</span>
             <ArrowBottom />
           </div>

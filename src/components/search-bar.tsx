@@ -15,7 +15,7 @@ const SearchBar = () => {
       <InputElement
         ref={searchRef}
         type="text"
-        className="w-full px-[15px] py-[5px] font-[400] text-[14px] bg-[transparent] border-0 focus:outline-none"
+        className="w-full px-[15px] py-[5px] text-[white] font-[400] text-[14px] bg-[transparent] border-0 focus:outline-none"
         handleChange={changeEventHandler}
         placeholder="Поиск"
       />
