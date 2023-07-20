@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const BusinessSectorApi = createApi({
   reducerPath: "businessSectorApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://https://jsonplaceholder.typicode.com/",
+    baseUrl: "https://jsonplaceholder.typicode.com/",
     prepareHeaders: (headers) => {
       // TODO: Add the authorization header
       return headers;

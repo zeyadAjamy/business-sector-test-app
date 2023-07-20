@@ -3,31 +3,37 @@ import { IoIosArrowDown as ArrowBottom } from "react-icons/io";
 
 import { PostType } from "@/types";
 
-const PostRow = ({ post }: { post: PostType }) => {
+const PostRow = ({ element }: { element: PostType }) => {
   return (
-    <div className="table-row">
-      <div className="table-cell p-[15px]">{post.id}</div>
-      <div className="table-cell p-[15px]">{post.title}</div>
-      <div className="table-cell p-[15px]">{post.body}</div>
+    <div className="table-row text-gray-dark text-[13px] font-[500] ease-in-out hover:bg-gray-light-bg duration-100">
+      <div className="table-cell p-[15px] border border-t-0 border-gray-extralight">{element.id}</div>
+      <div className="table-cell p-[15px] border-b boreder-r border-gray-extralight">{element.title}</div>
+      <div className="table-cell p-[15px] border border-t-0 border-gray-extralight">{element.body}</div>
     </div>
   );
 };
 
 const PostsTableHeader = () => {
   return (
-    <div className="table-header-group">
-      <div className="table-header-group">
-        <div className="table-cell flex items-center gap-[10px] cursor-pointer">
-          <span className="font-[600]">ID</span>
-          <ArrowBottom />
+    <div className="table-header-group bg-gray-dark text-[white]">
+      <div className="table-row">
+        <div className="table-cell">
+          <div className="flex flex-row items-center gap-[34px] text-[14px] cursor-pointer p-[15px]">
+            <span className="font-[600]">ID</span>
+            <ArrowBottom />
+          </div>
         </div>
-        <div className="table-cell flex items-center gap-[10px] cursor-pointer">
-          <span className="font-[600]">Заголовок</span>
-          <ArrowBottom />
+        <div className="table-cell">
+          <div className="flex flex-row items-center gap-[34px] text-[14px] cursor-pointer p-[15px]">
+            <span className="font-[600]">Заголовок</span>
+            <ArrowBottom />
+          </div>
         </div>
-        <div className="table-cell flex items-center gap-[10px] cursor-pointer">
-          <span className="font-[600]">Описание</span>
-          <ArrowBottom />
+        <div className="table-cell">
+          <div className="flex flex-row items-center gap-[34px] text-[14px] cursor-pointer p-[15px]">
+            <span className="font-[600]">Описание</span>
+            <ArrowBottom />
+          </div>
         </div>
       </div>
     </div>
@@ -36,7 +42,7 @@ const PostsTableHeader = () => {
 
 const PostsTable = ({ posts }: { posts: PostType[] }) => {
   return (
-    <div>
+    <div className="w-full">
       <PostsTableHeader />
       <PaginationContainer Template={PostRow} list={posts} />
     </div>

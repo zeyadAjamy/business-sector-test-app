@@ -18,6 +18,8 @@ module.exports = {
     colors:{
       "gray-light": "#5A5C66",
       "gray-dark": "#474955",
+      "gray-extralight": "#E3E6EC",
+      "gray-light-bg": "#f3f4f6",
       "green-lime": "#7EBC3C",
     },
   },

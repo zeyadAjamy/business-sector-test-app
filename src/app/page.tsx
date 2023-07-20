@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import PostsTable from "@/components/posts";
 import SearchBar from "@/components/search-bar";
@@ -12,10 +12,9 @@ import { useFetchPostsQuery } from "@/store/api";
 export default function Home() {
   const { data, isLoading, isError, error } = useFetchPostsQuery();
   return (
-    <main className="flex min-h-screen flex-col gap-[15px] items-center justify-between p-24">
+    <main className="flex flex-col gap-[15px] items-start p-24">
       <SearchBar />
-      {isLoading && !isError && data ? <PostsTable posts={data} /> : <p> Loading ... </p>}
-      {isLoading && !isError && !data && <p> No Data to show! </p>}
+      {!isLoading && !isError ? <PostsTable posts={data || []} /> : <p> Loading ... </p>}
       {isError && <p> Something went wrong! </p>}
     </main>
   );

@@ -8,9 +8,18 @@ const SearchBar = () => {
   const changeEventHandler = (e: React.ChangeEvent) => {};
 
   return (
-    <div className="md:w-1/2 sm:w-full flex items-center p-[15px] bg-gray-light">
-      <InputElement ref={searchRef} type="text" className="px-[15px] py-[8px] font-[400] text-[14px] bg-[transparent] border-0 focus:outline-none" handleChange={changeEventHandler} />
-      <SearchIcon size={18} className="text-[white] select-none"/>
+    <div
+      className="md:w-1/2 sm:w-full flex items-center p-[15px] bg-gray-light cursor-pointer"
+      onClick={() => searchRef!.current!.focus()}
+    >
+      <InputElement
+        ref={searchRef}
+        type="text"
+        className="w-full px-[15px] py-[5px] font-[400] text-[14px] bg-[transparent] border-0 focus:outline-none"
+        handleChange={changeEventHandler}
+        placeholder="Поиск"
+      />
+      <SearchIcon size={20} className="text-[white] select-none" />
     </div>
   );
 };
