@@ -75,7 +75,7 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
 
     // Exit if num is zero, less than zero or greater than the page number
     if (num <= 0 || num > numberOfPages) {
-      console.error("The page number does not exist!")
+      console.error("The page number does not exist!");
       return;
     }
 
