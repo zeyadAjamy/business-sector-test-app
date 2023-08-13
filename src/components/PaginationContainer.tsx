@@ -47,7 +47,6 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
 };
 
 const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
-  console.log(startItem);
   return (
     <div className="w-full">
       {list.map((element: (typeof list)[0], i: number) => {
@@ -103,6 +102,13 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
     };
   });
 
+  
+  useEffect(() => {
+    setCurrentPageNumber(1);
+    setNumberOfPages(Math.ceil(list.length / numberItemsPage));
+    setStartItem(0);
+  }, [list]);
+
   useEffect(() => {
     switch (typeof startIndex) {
       case "string":
@@ -111,13 +117,8 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
       case "number":
         changePage(startIndex as number);
     }
-  });
-
-  useEffect(() => {
-    setCurrentPageNumber(1);
-    setNumberOfPages(Math.ceil(list.length / numberItemsPage));
-    setStartItem(0);
-  }, [list]);
+    console.log(startIndex)
+  }, [startIndex]);
 
   return (
     <>
