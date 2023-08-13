@@ -1,8 +1,9 @@
+import { useSearchParams } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { IoIosArrowDown as ArrowBottom } from "react-icons/io";
 import { setViewPosts } from "@/store/slices/postSlice";
-import type { PostType } from "@/types";
 import PaginationContainer from "@/components/PaginationContainer";
+import type { PostType } from "@/types";
 
 const PostRow = ({ element }: { element: PostType }) => {
   return (
@@ -66,11 +67,15 @@ const PostsTableHeader = () => {
   );
 };
 
+// URL -> **?page=1
+
 const PostsTable = ({ posts }: { posts: PostType[] }) => {
+  const pageNumber = useSearchParams().get('page') || 1;  
+  
   return (
     <div className="w-full overflow-hidden">
       <PostsTableHeader />
-      <PaginationContainer Template={PostRow} list={posts} />
+      <PaginationContainer Template={PostRow} list={posts} startIndex={pageNumber}/>
     </div>
   );
 };

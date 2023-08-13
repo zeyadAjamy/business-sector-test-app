@@ -58,7 +58,7 @@ const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
   );
 };
 
-const PaginationContainer = ({ list = [], Template = (element) => <></> }: ContainerType) => {
+const PaginationContainer = ({ list = [], Template = (element) => <></>, startIndex }: ContainerType) => {
   const [startItem, setStartItem] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [numberItemsPage, setNumberItemsPage] = useState(10);
@@ -101,10 +101,18 @@ const PaginationContainer = ({ list = [], Template = (element) => <></> }: Conta
   });
 
   useEffect(() => {
+    if (typeof startIndex == "string") {
+      const startIndexNum = parseInt(startIndex);
+      if (!isNaN(startIndexNum)) setCurrentPageNumber(startIndexNum);
+    }
+  }, []);
+
+  useEffect(() => {
     setCurrentPageNumber(1);
     setNumberOfPages(Math.ceil(list.length / numberItemsPage));
     setStartItem(0);
   }, [list]);
+  
   return (
     <>
       <Cards list={list} startItem={startItem} numberItemsPage={numberItemsPage} Template={Template} />

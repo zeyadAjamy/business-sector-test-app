@@ -14,6 +14,7 @@ export interface CardsType {
 export interface ContainerType {
   list: any;
   Template: ({ element, index }: any) => JSX.Element;
+  startIndex: string | number;
 }
 
 export interface ListPagesType {
