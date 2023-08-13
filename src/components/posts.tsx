@@ -71,7 +71,6 @@ const PostsTableHeader = () => {
 
 const PostsTable = ({ posts }: { posts: PostType[] }) => {
   const pageNumber = useSearchParams().get('page') || 1;  
-  
   return (
     <div className="w-full overflow-hidden">
       <PostsTableHeader />

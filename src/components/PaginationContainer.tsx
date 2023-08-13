@@ -47,6 +47,7 @@ const PaginationController = ({ changePage, currentPageNumber, number_pages }: C
 };
 
 const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
+  console.log(startItem);
   return (
     <div className="w-full">
       {list.map((element: (typeof list)[0], i: number) => {
@@ -58,6 +59,7 @@ const Cards = ({ list, startItem, numberItemsPage, Template }: CardsType) => {
   );
 };
 
+// TODO: Print to the user the error of page number excced the availible pages
 const PaginationContainer = ({ list = [], Template = (element) => <></>, startIndex }: ContainerType) => {
   const [startItem, setStartItem] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -73,6 +75,7 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
 
     // Exit if num is zero, less than zero or greater than the page number
     if (num <= 0 || num > numberOfPages) {
+      console.error("The page number does not exist!")
       return;
     }
 
@@ -101,18 +104,21 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
   });
 
   useEffect(() => {
-    if (typeof startIndex == "string") {
-      const startIndexNum = parseInt(startIndex);
-      if (!isNaN(startIndexNum)) setCurrentPageNumber(startIndexNum);
+    switch (typeof startIndex) {
+      case "string":
+        const startIndexNum = parseInt(startIndex);
+        if (!isNaN(startIndexNum)) changePage(startIndexNum);
+      case "number":
+        changePage(startIndex as number);
     }
-  }, []);
+  });
 
   useEffect(() => {
     setCurrentPageNumber(1);
     setNumberOfPages(Math.ceil(list.length / numberItemsPage));
     setStartItem(0);
   }, [list]);
-  
+
   return (
     <>
       <Cards list={list} startItem={startItem} numberItemsPage={numberItemsPage} Template={Template} />
