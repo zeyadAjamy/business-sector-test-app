@@ -1,7 +1,7 @@
 export interface ControllerType {
-  changePage: (num: number) => void;
+  changePage: (num: number, totalNumberOfPages: number) => void;
   currentPageNumber: number;
-  number_pages: number;
+  totalNumberOfPages: number;
 }
 
 export interface CardsType {
@@ -18,9 +18,9 @@ export interface ContainerType {
 }
 
 export interface ListPagesType {
-  number_pages: number;
+  totalNumberOfPages: number;
   currentPageNumber: number;
-  changePage: (pageNumber: number) => void;
+  changePage: (pageNumber: number, totalNumberOfPages: number) => void;
 }
 
 export interface PostType {

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { MdArrowBackIosNew as ScrollArrowLeft, MdArrowForwardIos as ScrollArrowRight } from "react-icons/md";
 import type { ControllerType, CardsType, ContainerType, ListPagesType } from "@/types";
 
-const ListPageNumbers = ({ number_pages, currentPageNumber, changePage }: ListPagesType) => (
+const ListPageNumbers = ({ totalNumberOfPages, currentPageNumber, changePage }: ListPagesType) => (
   <div className="order-2">
-    {[...Array(number_pages)].map((_, i) => (
+    {[...Array(totalNumberOfPages)].map((_, i) => (
       <span
         className={`px-2 font-[500] cursor-pointer italic sm:hidden md:inline ${
           currentPageNumber == i + 1 ? "text-green-lime" : "text-gray-dark"
         }`}
-        onClick={() => changePage(i + 1)}
+        onClick={() => changePage(i + 1, totalNumberOfPages)}
         key={i}
       >
         {i + 1}
@@ -18,26 +18,30 @@ const ListPageNumbers = ({ number_pages, currentPageNumber, changePage }: ListPa
   </div>
 );
 
-const PaginationController = ({ changePage, currentPageNumber, number_pages }: ControllerType) => {
+const PaginationController = ({ changePage, currentPageNumber, totalNumberOfPages }: ControllerType) => {
   return (
     <div
       className={`${
-        number_pages > 1 ? "flex" : "hidden"
+        totalNumberOfPages > 1 ? "flex" : "hidden"
       } w-full h-fit py-[5px] mt-[20px] flex-row justify-between items-center`}
     >
       <button
         className="flex items-center px-1 gap-1 order-1 font-[500] text-[18px]"
         disabled={currentPageNumber == 1}
-        onClick={() => changePage(currentPageNumber - 1)}
+        onClick={() => changePage(currentPageNumber - 1, totalNumberOfPages)}
       >
         <ScrollArrowLeft />
         <span> Назад </span>
       </button>
-      <ListPageNumbers number_pages={number_pages} currentPageNumber={currentPageNumber} changePage={changePage} />
+      <ListPageNumbers
+        totalNumberOfPages={totalNumberOfPages}
+        currentPageNumber={currentPageNumber}
+        changePage={changePage}
+      />
       <button
         className="flex items-center px-1 gap-1 order-3 font-[500] text-[18px]"
-        disabled={currentPageNumber == number_pages}
-        onClick={() => changePage(currentPageNumber + 1)}
+        disabled={currentPageNumber == totalNumberOfPages}
+        onClick={() => changePage(currentPageNumber + 1, totalNumberOfPages)}
       >
         <span> Далее </span>
         <ScrollArrowRight />
@@ -65,7 +69,7 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
   const [numberItemsPage, setNumberItemsPage] = useState(10);
   const [numberOfPages, setNumberOfPages] = useState(0);
 
-  const changePage = (num: number) => {
+  const changePage = (num: number, totalNumberOfPages: number) => {
     /**
      * 1 -> 0, number_items-1
      * 2 -> number_items, (2*number_items)-1
@@ -73,8 +77,10 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
      */
 
     // Exit if num is zero, less than zero or greater than the page number
-    if (num <= 0 || num > numberOfPages) {
-      console.error("The page number does not exist!");
+    console.log(num, totalNumberOfPages)
+    setNumberOfPages(totalNumberOfPages);
+    if (num <= 0 || num > totalNumberOfPages) {
+      // console.error("The page number does not exist!");
       return;
     }
 
@@ -89,9 +95,9 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
       let key = e.key;
 
       if (key == "ArrowRight") {
-        changePage(currentPageNumber + 1);
+        changePage(currentPageNumber + 1, numberOfPages);
       } else if (key == "ArrowLeft") {
-        changePage(currentPageNumber - 1);
+        changePage(currentPageNumber - 1, numberOfPages);
       }
     };
 
@@ -102,23 +108,11 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
     };
   });
 
-  
   useEffect(() => {
-    setCurrentPageNumber(1);
-    setNumberOfPages(Math.ceil(list.length / numberItemsPage));
-    setStartItem(0);
+    const totalNumberOfPages = Math.ceil(list.length / numberItemsPage);
+    const startIndexNum = parseInt(startIndex as string);
+    if (!isNaN(startIndexNum)) changePage(startIndexNum, totalNumberOfPages);
   }, [list]);
-
-  useEffect(() => {
-    switch (typeof startIndex) {
-      case "string":
-        const startIndexNum = parseInt(startIndex);
-        if (!isNaN(startIndexNum)) changePage(startIndexNum);
-      case "number":
-        changePage(startIndex as number);
-    }
-    console.log(startIndex)
-  }, [startIndex]);
 
   return (
     <>
@@ -126,7 +120,7 @@ const PaginationContainer = ({ list = [], Template = (element) => <></>, startIn
       <PaginationController
         changePage={changePage}
         currentPageNumber={currentPageNumber}
-        number_pages={numberOfPages}
+        totalNumberOfPages={numberOfPages}
       />
     </>
   );
